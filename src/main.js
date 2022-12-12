@@ -10,6 +10,7 @@ import store from './store'
 import './assets/bootstrap-5.1.3-dist/css/bootstrap.css'
 import './assets/bootstrap-5.1.3-dist/js/bootstrap.js'
 
+import './assets/style/index.less'
 
 // import './assets/bootstrap-1.0/css/vendor.min.css'
 // import './assets/bootstrap-1.0/css/plugins.min.css'

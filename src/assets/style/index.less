@@ -1,0 +1,27 @@
+.menu-text {
+  position: relative
+}
+
+.menu-text:before {
+  left: 0;
+  right: auto;
+  width: 100%
+}
+
+.menu-text::before {
+  background-color: #fff;
+  content: "";
+  position: absolute;
+  left: auto;
+  right: 0;
+  bottom: 3px;
+  height: 2px;
+  -webkit-transition: .4s;
+  -o-transition: .4s;
+  transition: .4s;
+  width: 0 // }
+}
+
+.active01 {
+  background-color: red;
+}
