@@ -1,7 +1,9 @@
 <template>
   <section>
-    <!-- 333 -->
-    <Headers />
+    <!-- 轮播图 -->
+    <Shuffling />
+    <!-- 设备 -->
+    <Device />
   </section>
 </template>
 
@@ -9,7 +11,10 @@
 export default {
   components: {
     Headers: () => import("@/components/Headers"),
+    Shuffling: () => import("@/views/homepage/Shuffling.vue"),
+    Device: () => import("@/views/homepage/Device.vue"),
   },
+  created() {},
 };
 </script>
 

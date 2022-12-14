@@ -1,8 +1,10 @@
 <template>
-  <section>
+  <section class="sticky-top">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">{{ homeTitle }}</a>
+        <router-link class="navbar-brand logotitle" to="/home">{{
+          homeTitle
+        }}</router-link>
         <button
           class="navbar-toggler"
           type="button"
@@ -21,27 +23,26 @@
               :class="{ dropdown: item.label.length !== 0 }"
               v-for="(item, i) in navlist"
               :key="i + item"
-              @click="open(item.title)"
             >
-              <a
+              <!-- {{ item.routerUrl }} -->
+              <router-link
+                :to="item.routerUrl"
                 v-if="item.label.length === 0"
                 :key="'001'"
                 class="nav-link"
                 :class="{
-                  active: isactive === i,
                   disabled: item.isdisabled,
                 }"
                 aria-current="page"
                 href="#"
               >
                 {{ item.title }}
-              </a>
+              </router-link>
               <a
                 v-else
                 :key="'001'"
                 class="nav-link dropdown-toggle"
                 :class="{
-                  active: isactive === i,
                   disabled: item.isdisabled,
                 }"
                 href="#"
@@ -59,7 +60,9 @@
                   ref="subRef"
                   @click="open($refs['subRef'].textContent)"
                 >
-                  <a class="dropdown-item" href="#">{{ sub.value }}</a>
+                  <router-link class="dropdown-item" :to="sub.routerUrl">{{
+                    sub.value
+                  }}</router-link>
                 </li>
               </ul>
             </li>
@@ -105,53 +108,71 @@ export default {
           title: "开放能力",
           label: [],
           isdisabled: false,
+          routerUrl: "/home01",
         },
         {
           title: "网器方案",
           label: [],
           isdisabled: false,
+          routerUrl: "/device",
         },
         {
           title: "技能中心",
           label: [
             {
               value: "技能一",
+              routerUrl: "/device",
             },
             {
               value: "技能二",
+              routerUrl: "/home",
             },
             {
               value: "技能三",
+              routerUrl: "/home",
             },
           ],
           isdisabled: false,
+          routerUrl: "/home",
         },
         {
           title: "开发者",
           label: [],
           isdisabled: false,
+          routerUrl: "/home",
         },
         {
           title: "合作与生态",
           label: [],
           isdisabled: true,
+          routerUrl: "/home",
         },
         {
           title: "支持服务",
           label: [],
           isdisabled: true,
+          routerUrl: "/home",
         },
       ],
     };
-  },
-  methods: {
-    open(i) {
-      console.log(i, 33);
-      this.active = i;
-    },
   },
 };
 </script>
 
 <style lang="less" scoped>
+nav {
+  padding: 8px 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #0d6efd !important;
+    }
+  }
+}
+.logotitle.router-link-exact-active {
+  color: #000 !important;
+}
 </style>

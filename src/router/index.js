@@ -4,14 +4,23 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [{
-    path: '/',
+    path: "/",
+    redirect: '/home'
+  },
+  {
+    path: '/home',
     // name: 'home',
     component: () => import('@/views/Home.vue')
   },
-  // {
-  //   path: '/about',
-  //   component: () => import('../views/AboutView.vue')
-  // }
+  {
+    path: '/device',
+    component: () => import('../views/devicepage/index.vue'),
+    children: []
+  },
+  {
+    path: '/device-detail/:id',
+    component: () => import('../views/devicepage/tabs/ListDetails.vue'),
+  }
 ]
 
 const router = new VueRouter({

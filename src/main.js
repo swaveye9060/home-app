@@ -4,6 +4,9 @@ import router from './router'
 import store from './store'
 
 
+import mixin from './libs/mixin'
+Vue.mixin(mixin);
+
 /* 引用bootstrap */
 // import './assets/bootstrap-4.6.1-dist/css/bootstrap.css'
 // import './assets/bootstrap-4.6.1-dist/js/bootstrap.js'
@@ -20,6 +23,11 @@ import './assets/style/index.less'
 // import './assets/bootstrap-1.0/js/plugins.min'
 // import './assets/bootstrap-1.0/js/main'
 
+/* 
+ * api请求
+ */
+Vue.prototype.$commonApi = require('@/api/common').default
+Vue.prototype.$homeApi = require('@/api/home').default
 
 
 Vue.config.productionTip = false

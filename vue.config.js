@@ -49,10 +49,17 @@ module.exports = defineConfig({
         }
       },
       // ---以下配置后台IP
-      '/adms': {
-        target: 'http://10.8.1.30:8002',
+      // '/adms': {
+      //   target: 'http://10.8.1.30:8002',
+      //   changeOrigin: true,
+      // },
+      '/manage': {
+        target: 'http://10.8.1.30:8008',
         changeOrigin: true,
-      }
+        // pathRewrite: {
+        //   "^/manage": "/xxx"
+        // }
+      },
     }
   },
   // 
