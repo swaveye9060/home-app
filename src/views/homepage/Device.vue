@@ -1,13 +1,19 @@
-<template>
-  <section>
-    <div class="container text-center">
-      <img
-        class="xxximgs"
-        :src="`${BaseUrl}/system/file/downloadFile?fid=1670898904174.jpg&fileBucket=smarthome&fileName=333.jpeg`"
-        alt=""
-      />
+<!-- 
+  * Author: ye9060
+  * 2022-12-13 ~ 2022-12-15
+  * [设备]
+  * 获取图片
+  <img
+    class="xxximgs"
+    :src="`${BaseUrl}/system/file/downloadFile?fid=1670898904174.jpg&fileBucket=smarthome&fileName=333.jpeg`"
+    alt=""
+  />
+ -->
 
-      <div class="justify-content-md-center">
+<template>
+  <section class="box">
+    <div class="container text-center">
+      <div class="justify-content-md-center titelbox">
         <div class="h3">
           {{ list.title01 }}
         </div>
@@ -66,6 +72,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.box {
+  height: 600px;
+
+  border: 1px solid #000;
+  background-color: rgba(255, 196, 0, 0.06);
+}
+
+.titelbox {
+  padding: 3vh;
+}
+
 .col01 {
   background-color: aqua;
   height: 20vw;

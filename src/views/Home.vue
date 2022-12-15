@@ -10,7 +10,6 @@
 <script>
 export default {
   components: {
-    Headers: () => import("@/components/Headers"),
     Shuffling: () => import("@/views/homepage/Shuffling.vue"),
     Device: () => import("@/views/homepage/Device.vue"),
   },
