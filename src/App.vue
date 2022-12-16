@@ -11,11 +11,7 @@
 </template>
 
 <script>
-export default {
-  components: {
-    Headers: () => import("@/components/Headers"),
-  },
-};
+export default {};
 </script>
 
 
