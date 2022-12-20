@@ -95,11 +95,6 @@
 
 <script>
 export default {
-  computed: {
-    homeTitle() {
-      return homeTitle;
-    },
-  },
   data() {
     return {
       isactive: -1,

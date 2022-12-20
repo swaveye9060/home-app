@@ -1,11 +1,11 @@
 <!-- 
   * Author: ye9060
   * 2022-12-16 ~ 2022-12-16
-  * [服务]
+  * [介绍]
  -->
 
 <template>
-  <section class="box">
+  <section class="homebox">
     <div class="container text-center">
       <HomeTitle :list="list" />
 
@@ -65,14 +65,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.box {
-  padding: 3vh 0;
-}
-
 .cardbox {
   &:hover {
     .card {
-      transform: translateY(-6%) rotate(0deg);
+      transform: translateY(-4%) rotate(0deg);
+
+      .card-body {
+        transition: none;
+      }
     }
   }
 }

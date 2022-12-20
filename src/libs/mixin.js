@@ -7,6 +7,7 @@
 export default {
   computed: {
     /* 获取全局变量并返回 */
+    homeTitle: () => $homeTitle,
     BaseUrl: () => $BaseUrl,
   },
 }

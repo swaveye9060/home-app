@@ -11,7 +11,7 @@
  -->
 
 <template>
-  <section class="box">
+  <section class="homebox box">
     <div class="container text-center">
       <HomeTitle :list="list" />
 
@@ -77,11 +77,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.box {
-  padding: 3vh 0;
-  margin-bottom: 1000px;
-}
-
 ///
 .cardbox {
   padding: 0 1vw;

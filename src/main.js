@@ -37,6 +37,15 @@ import HomeTitle from './components/global/HomeTitle.vue'
 Vue.component('HomeTitle', HomeTitle)
 
 
+
+/* 
+ * 引入外部安装组件
+ * CountTo官网 url:https://www.npmjs.com/package/vue-count-to
+ */
+import CountTo from 'vue-count-to'
+Vue.component('CountTo', CountTo)
+
+
 /* --- */
 Vue.config.productionTip = false
 

@@ -1,7 +1,7 @@
 <template>
   <div class="titelbox">
-    <div class="h3">{{ list.title01 }}</div>
-    <div>
+    <h3>{{ list.title01 }}</h3>
+    <div class="alink">
       {{ list.title02 }}
       <router-link :to="list.url">{{ list.title02a }}</router-link>
     </div>
@@ -29,6 +29,13 @@ export default {
 
 <style lang="less" scoped>
 .titelbox {
-  padding: 3vh 0;
+  color: rgba(0, 0, 0, 0.8);
+  padding: 0 0 4vh;
+  h3 {
+    font-weight: 600;
+  }
+  .alink {
+    padding: 1vh 0;
+  }
 }
 </style>

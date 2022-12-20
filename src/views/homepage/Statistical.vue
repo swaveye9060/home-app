@@ -5,7 +5,7 @@
  -->
 
 <template>
-  <section>
+  <section class="box">
     <div class="funfact-section d-flex flex-column justify-content-center">
       <div class="container-fluid p-0">
         <div class="row no-gutters counters align-items-center">
@@ -16,7 +16,7 @@
               data-aos-delay="100"
             >
               <div class="counter-area">
-                <strong class="counter">102</strong>
+                <strong class="counter"> <CountTo :endVal="2022" /> </strong>
               </div>
               <div class="counter-content">
                 <h3 class="title">Active Projects</h3>
@@ -30,8 +30,8 @@
               data-aos-delay="300"
             >
               <div class="counter-area">
-                <strong class="counter">5700</strong
-                ><span class="text-white ml-2">+</span>
+                <strong class="counter"> <CountTo :endVal="5700" /> </strong>
+                <span class="text-white ml-2">+</span>
               </div>
               <div class="counter-content">
                 <h3 class="title">Projects Done</h3>
@@ -45,8 +45,8 @@
               data-aos-delay="600"
             >
               <div class="counter-area">
-                <strong class="counter">98</strong
-                ><span class="text-white ml-2">%</span>
+                <strong class="counter"> <CountTo :endVal="98" /> </strong>
+                <span class="text-white ml-2">%</span>
               </div>
               <div class="counter-content">
                 <h3 class="title">Happy Clients</h3>
@@ -60,7 +60,7 @@
               data-aos-delay="900"
             >
               <div class="counter-area">
-                <strong class="counter">23,045</strong>
+                <strong class="counter"> <CountTo :endVal="23045" /> </strong>
               </div>
               <div class="counter-content">
                 <h3 class="title">Working Hours</h3>
@@ -78,6 +78,10 @@ export default {};
 </script>
 
 <style lang="less" scoped>
+.box {
+  overflow: hidden;
+}
+
 .funfact-section {
   background-image: url("../../assets/image/1.jpg");
   background-repeat: no-repeat;
