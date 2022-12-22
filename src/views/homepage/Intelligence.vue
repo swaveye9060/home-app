@@ -99,17 +99,18 @@ export default {
 }
 
 .playbox {
-  position: relative;
-  height: 160px;
+  // position: relative;
+  // height: 130px;
 }
 
 .rowbox {
   width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
+  // position: absolute;
+  // top: 0;
+  // left: 0;
   display: flex;
-  flex-wrap: nowrap;
+  // justify-content: space-between;
+  // flex-wrap: nowrap;
   transition: all 0.3s;
 }
 
@@ -182,6 +183,75 @@ export default {
   }
   .imgbg {
     display: block;
+  }
+}
+
+@media (max-width: 1200px) {
+  .rowbox {
+    flex-wrap: wrap;
+
+    .cardbox {
+      flex: 0.25;
+      margin-right: 16px;
+      &:nth-child(4) {
+        margin-right: 0;
+      }
+      &:nth-child(5) {
+        margin-top: 40px;
+        flex: 0.19;
+      }
+    }
+  }
+}
+@media (max-width: 991px) {
+  .rowbox {
+    flex-wrap: wrap;
+    .cardbox {
+      flex: 0.4;
+      margin-right: 16px;
+      &:nth-child(3) {
+        margin-right: 0;
+      }
+      &:nth-child(n + 4) {
+        margin-top: 40px;
+        flex: 0.297;
+        margin-right: 16px;
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .rowbox {
+    flex-wrap: wrap;
+    .cardbox {
+      flex: 0.5;
+      margin-right: 16px;
+      &:nth-child(n + 3) {
+        margin-top: 40px;
+        flex: 0.5;
+        margin-right: 16px;
+      }
+      &:nth-child(2n) {
+        margin-right: 0;
+      }
+      &:nth-child(5) {
+        flex: 0.43;
+      }
+    }
+  }
+}
+@media (max-width: 479px) {
+  .rowbox {
+    flex-wrap: wrap;
+    justify-content: center;
+    .cardbox {
+      flex: 0.6;
+      &:nth-child(n + 1) {
+        margin-top: 40px;
+        flex: 0.6;
+        margin-right: 0;
+      }
+    }
   }
 }
 </style>

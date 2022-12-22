@@ -11,7 +11,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  created() {
+    // console.log(this.$loadDialog(), 33);
+    // setTimeout(() => {
+    //   console.log(this.$closeLoading(), 333);
+    // }, 2000);
+  },
+};
 </script>
 
 

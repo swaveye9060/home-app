@@ -36,6 +36,12 @@ Vue.component('Headers', Headers)
 import HomeTitle from './components/global/HomeTitle.vue'
 Vue.component('HomeTitle', HomeTitle)
 
+import loading001 from './components/global/Loding';
+Vue.use(loading001);
+
+
+
+
 
 
 /* 

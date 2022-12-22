@@ -1,6 +1,9 @@
 <template>
-  <section class="sticky-top">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <section class="">
+    <nav
+      class="navbar navbar-expand-lg navbarbox"
+      :class="{ 'header-sticky': headerSticky }"
+    >
       <div class="container-fluid">
         <router-link class="navbar-brand logotitle" to="/home">{{
           homeTitle
@@ -14,7 +17,7 @@
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon">按钮</span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul v-if="true" class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -36,7 +39,7 @@
                 aria-current="page"
                 href="#"
               >
-                {{ item.title }}
+                <span class="menu-text">{{ item.title }}</span>
               </router-link>
               <a
                 v-else
@@ -51,23 +54,26 @@
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                {{ item.title }}
+                <span class="menu-text">{{ item.title }}</span>
               </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <ul
+                class="dropdown-menu dropdown-menubox"
+                aria-labelledby="navbarDropdown"
+              >
                 <li
                   v-for="(sub, i) in item.label"
                   :key="i + sub"
                   ref="subRef"
                   @click="open($refs['subRef'].textContent)"
                 >
-                  <router-link class="dropdown-item" :to="sub.routerUrl">{{
-                    sub.value
-                  }}</router-link>
+                  <router-link class="dropdown-item" :to="sub.routerUrl">
+                    <span class="menu-text">{{ sub.value }}</span>
+                  </router-link>
                 </li>
               </ul>
             </li>
           </ul>
-          <form class="d-flex" role="search">
+          <form v-if="false" class="d-flex" role="search">
             <input
               class="form-control me-2"
               type="search"
@@ -78,9 +84,12 @@
               Search
             </button>
           </form>
+          <div class="login"><a href="#">登录</a></div>
         </div>
       </div>
     </nav>
+
+    <ScrollTop />
   </section>
 </template>
 
@@ -95,9 +104,13 @@
 
 <script>
 export default {
+  components: {
+    ScrollTop: () => import("./ScrollTop.vue"),
+  },
   data() {
     return {
       isactive: -1,
+      headerSticky: false,
       navlist: [
         {
           title: "开放能力",
@@ -151,23 +164,191 @@ export default {
       ],
     };
   },
+  mounted() {
+    // 滚动条的获取
+    window.addEventListener("scroll", this.handleScroll, true);
+  },
+
+  methods: {
+    handleScroll() {
+      // console.log("滚动高度", window.pageYOffset);
+      this.headerSticky = window.pageYOffset > 100 ? true : false;
+    },
+  },
 };
 </script>
 
 <style lang="less" scoped>
-nav {
-  padding: 8px 30px;
+// nav {
+//   padding: 8px 30px;
 
+//   a {
+//     font-weight: bold;
+//     color: #2c3e50;
+
+//     &.router-link-exact-active {
+//       color: #0d6efd !important;
+//     }
+//   }
+// }
+// .logotitle.router-link-exact-active {
+//   color: #000 !important;
+// }
+
+/* 白色 */
+// .navbarbox {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   z-index: 99;
+//   border: 1px solid #000;
+//   width: 100%;
+
+//   padding: 3vh 3vw;
+// }
+
+// a,
+// a:hover,
+// a:focus {
+//   color: #fff;
+//   font-weight: 600;
+//   font-size: 15px;
+// }
+
+// a .menu-text {
+//   position: relative;
+// }
+
+// a:hover .menu-text:before {
+//   left: 0;
+//   right: auto;
+//   width: 100%;
+// }
+
+// a .menu-text:before {
+//   background-color: #fff;
+//   content: "";
+//   position: absolute;
+//   left: auto;
+//   right: 0;
+//   bottom: -3px;
+//   height: 2px;
+//   -webkit-transition: 0.4s;
+//   -o-transition: 0.4s;
+//   transition: 0.4s;
+//   width: 0;
+// }
+
+/* 黑色 */
+.navbarbox {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 100%;
+
+  padding: 2vh 3vw;
+}
+
+a,
+a:hover,
+a:focus {
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+a .menu-text {
+  position: relative;
+}
+
+a:hover .menu-text:before {
+  left: 0;
+  right: auto;
+  width: 100%;
+}
+
+a .menu-text:before {
+  background-color: rgba(0, 0, 0, 0.8);
+  content: "";
+  position: absolute;
+  left: auto;
+  right: 0;
+  bottom: -3px;
+  height: 2px;
+  -webkit-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+  width: 0;
+}
+
+.dropdown-menubox {
   a {
-    font-weight: bold;
-    color: #2c3e50;
+    color: rgba(0, 0, 0, 0.8);
 
-    &.router-link-exact-active {
-      color: #0d6efd !important;
+    .menu-text:before {
+      background-color: #122179;
+    }
+
+    &:hover {
+      background-color: transparent;
     }
   }
 }
-.logotitle.router-link-exact-active {
-  color: #000 !important;
+
+/* 固定 */
+.header-sticky {
+  position: fixed;
+  animation: stickyTop 1.6s;
+
+  background-color: #fff;
+  border-bottom: 1px solid rgba(0, 0, 255, 0.3);
+  // height: 80px;
+  padding: 2vh 3vw;
+
+  a,
+  a:hover,
+  a:focus {
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .disabled {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  a .menu-text:before {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}
+
+@media (max-width: 991px) {
+  .navbarbox {
+    position: sticky;
+    padding: 2vh;
+    background-color: #fff;
+    border-bottom: 1px solid rgba(0, 0, 255, 0.3);
+    a,
+    a:hover,
+    a:focus {
+      color: rgba(0, 0, 0, 0.8);
+    }
+
+    .disabled {
+      color: rgba(0, 0, 0, 0.4);
+    }
+
+    a .menu-text:before {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+  }
+}
+
+@keyframes stickyTop {
+  0% {
+    transform: translateY(-200px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 </style>

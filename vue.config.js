@@ -36,9 +36,10 @@ module.exports = defineConfig({
   // 这里写你调用接口的基础路径，来解决跨域，如果设置了代理，那你本地开发环境的axios的baseUrl要写为 '' ，即空字符串
   devServer: {
     port: 9090,
-    host: 'localhost',
+    // host: 'localhost',
     // host: '0.0.0.0',
     // https: false,
+    open: true,
     // proxy: 'http://localhost:9090'   // 配置跨域处理,只有一个代理
     proxy: { //配置多个跨域
       "/api": {

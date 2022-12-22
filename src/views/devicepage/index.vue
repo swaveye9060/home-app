@@ -1,78 +1,32 @@
 <template>
   <section class="pagebox">
-    <div class="container text-center">
-      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link active"
-            id="pills-tabs01-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#pills-tabs01"
-            type="button"
-            role="tab"
-            aria-controls="pills-tabs01"
-            aria-selected="true"
-          >
-            快速解决方案
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="pills-tab02-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#pills-tab02"
-            type="button"
-            role="tab"
-            aria-controls="pills-tab02"
-            aria-selected="false"
-          >
-            设备解决方案
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="pills-tab03-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#pills-tab03"
-            type="button"
-            role="tab"
-            aria-controls="pills-tab03"
-            aria-selected="false"
-          >
-            行业解决方案
-          </button>
-        </li>
-      </ul>
-      <div class="tab-content" id="pills-tabContent">
-        <div
-          class="tab-pane fade show active"
-          id="pills-tabs01"
-          role="tabpanel"
-          aria-labelledby="pills-tabs01-tab"
-          tabindex="0"
-        >
-          ...666
+    <div class="xxx">333</div>
+    <div class="container">
+      <!-- 电器wiring -->
+      <div class="wiringbox">
+        <div class="row mt-n2 btnbox">
+          <div class="messonry-button text-center mb-6" data-aos="fade-up">
+            <button
+              class="port-filter"
+              :class="{ 'is-checked': isChecked === -1 }"
+              @click="getAll"
+            >
+              全部
+            </button>
+
+            <button
+              class="port-filter"
+              v-for="(item, i) in leftTabs"
+              :key="item.id"
+              :class="{ 'is-checked': isChecked === i }"
+              @click="getIndex(item.id, i)"
+            >
+              {{ item.name }}
+            </button>
+          </div>
         </div>
-        <div
-          class="tab-pane fade"
-          id="pills-tab02"
-          role="tabpanel"
-          aria-labelledby="pills-tab02-tab"
-          tabindex="0"
-        >
-          <TabTwo />
-        </div>
-        <div
-          class="tab-pane fade"
-          id="pills-tab03"
-          role="tabpanel"
-          aria-labelledby="pills-tab03-tab"
-          tabindex="0"
-        >
-          ...4
-        </div>
+        <!-- 内容 -->
+        <Cradbox :datalist="datalist" />
       </div>
     </div>
   </section>
@@ -83,13 +37,142 @@ export default {
   components: {
     TabOne: () => import("./tabs/TabOne.vue"),
     TabTwo: () => import("./tabs/TabTwo.vue"),
+    Cradbox: () => import("@/components/other/Cradbox.vue"),
+  },
+  data() {
+    return {
+      isChecked: -1,
+      datalist: [],
+      leftTabs: [],
+    };
+  },
+
+  created() {
+    /* 侧边title */
+    this.$homeApi
+      .getDevTypeInfo({
+        type: 1,
+      })
+      .then((res) => {
+        if (res.data.code !== 0) return;
+        this.leftTabs = res.data.data;
+        // this.getIndex(res.data.data[0].id);
+      });
+
+    /* 首次调用 */
+    this.getAll();
+  },
+
+  methods: {
+    /* 获取所有 */
+    getAll() {
+      this.$homeApi.getAllDevice().then((res) => {
+        if (res.data.code !== 0) return;
+        this.datalist = res.data.data;
+        this.isChecked = -1;
+      });
+    },
+
+    /* 获取下标 */
+    getIndex(id, index) {
+      this.isChecked = index;
+      // console.log(i, 66);
+      this.listIndex = id;
+      // 获取列表内容
+      this.$homeApi
+        .getDevByTypeId({
+          id: id,
+        })
+        .then((res) => {
+          // console.log(res, 33);
+          if (res.data.code !== 0) return;
+          this.datalist = res.data.data;
+        });
+    },
   },
 };
 </script>
 
 <style lang="less" scoped>
-// .pagebox {
-//   height: 50px;
-//   border: 1px solid #000;
-// }
+.pagebox {
+  height: 2000px;
+  // height: 50px;
+  // border: 1px solid #000;
+}
+
+.xxx {
+  height: 230px;
+  background-color: rgba(0, 0, 0, 0.01);
+}
+
+.wiringbox {
+  padding: 5vh 0 3vh;
+}
+
+.btnbox {
+  padding: 2vh 0;
+}
+
+.messonry-button .port-filter {
+  position: relative;
+  border: 0;
+  background-color: #fff;
+  padding: 0;
+  margin: 0 30px 10px 0;
+  -webkit-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+  color: #212121;
+}
+
+.messonry-button .port-filter:before {
+  background-color: #122179;
+  content: "";
+  position: absolute;
+  left: auto;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  -webkit-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+  width: 0;
+}
+
+.messonry-button .port-filter:last-child {
+  margin-right: 0;
+}
+
+.messonry-button .port-filter:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.messonry-button .port-filter.is-checked {
+  color: #122179;
+}
+
+.messonry-button .port-filter.is-checked:before {
+  left: 0;
+  right: auto;
+  width: 100%;
+}
+
+.messonry-button .port-filter:hover {
+  color: #122179;
+  left: 0;
+  right: auto;
+  -webkit-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.messonry-button .port-filter:hover:before {
+  left: 0;
+  right: auto;
+  width: 100%;
+}
 </style>
