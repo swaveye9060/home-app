@@ -1,6 +1,6 @@
 <template>
   <section class="pagebox">
-    <div class="xxx">333</div>
+    <PlayImgs :datalist="dataDevPic" />
     <div class="container">
       <!-- 电器wiring -->
       <div class="wiringbox">
@@ -29,6 +29,7 @@
         <Cradbox :datalist="datalist" />
       </div>
     </div>
+    <Footers />
   </section>
 </template>
 
@@ -38,12 +39,14 @@ export default {
     TabOne: () => import("./tabs/TabOne.vue"),
     TabTwo: () => import("./tabs/TabTwo.vue"),
     Cradbox: () => import("@/components/other/Cradbox.vue"),
+    PlayImgs: () => import("@/components/other/PlayImgs.vue"),
   },
   data() {
     return {
       isChecked: -1,
       datalist: [],
       leftTabs: [],
+      dataDevPic: [],
     };
   },
 
@@ -58,6 +61,13 @@ export default {
         this.leftTabs = res.data.data;
         // this.getIndex(res.data.data[0].id);
       });
+
+    /* 获取设备轮播图 */
+    this.$homeApi.getDevPic().then((res) => {
+      // console.log(res, 333);
+      if (res.data.code !== 0) return;
+      this.dataDevPic = res.data.data;
+    });
 
     /* 首次调用 */
     this.getAll();
@@ -95,14 +105,9 @@ export default {
 
 <style lang="less" scoped>
 .pagebox {
-  height: 2000px;
+  // height: 2000px;
   // height: 50px;
   // border: 1px solid #000;
-}
-
-.xxx {
-  height: 230px;
-  background-color: rgba(0, 0, 0, 0.01);
 }
 
 .wiringbox {

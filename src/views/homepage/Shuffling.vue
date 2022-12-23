@@ -15,7 +15,11 @@
     >
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="@/assets/image/1-1.jpg" class="d-block w-100" alt="..." />
+          <img
+            src="../../assets/image/1-1.jpg"
+            class="d-block w-100"
+            alt="..."
+          />
         </div>
         <div class="carousel-item xxx">
           <img

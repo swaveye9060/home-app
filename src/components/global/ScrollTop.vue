@@ -1,7 +1,7 @@
 <template>
-  <section class="scrolltopbox" v-if="scrolltop">
-    <a href="#">Top</a>
-    <a href="#">Top</a>
+  <section class="scrolltopbox" v-if="scrolltop" @click="toTop">
+    <span>Top</span>
+    <span>Top</span>
   </section>
 </template>
 
@@ -18,6 +18,10 @@ export default {
   },
 
   methods: {
+    toTop() {
+      document.documentElement.scrollTop = 0;
+    },
+
     handleScroll() {
       // console.log("滚动高度", window.pageYOffset);
       this.scrolltop = window.pageYOffset > 400 ? true : false;
@@ -39,7 +43,9 @@ export default {
   overflow: hidden;
   animation: playscrolltop 0.7s;
 
-  a {
+  cursor: pointer;
+
+  span {
     display: block;
     text-align: center;
     height: 50px;
@@ -51,7 +57,7 @@ export default {
 
   &:hover {
     background-color: #122179;
-    a {
+    span {
       transform: translateY(-50px);
     }
   }

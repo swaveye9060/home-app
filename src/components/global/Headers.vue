@@ -172,7 +172,7 @@ export default {
   methods: {
     handleScroll() {
       // console.log("滚动高度", window.pageYOffset);
-      this.headerSticky = window.pageYOffset > 100 ? true : false;
+      this.headerSticky = window.pageYOffset > 300 ? true : false;
     },
   },
 };

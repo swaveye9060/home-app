@@ -33,6 +33,9 @@ Vue.prototype.$homeApi = require('@/api/home').default
 import Headers from './components/global/Headers.vue'
 Vue.component('Headers', Headers)
 
+import Footers from './components/global/Footers.vue'
+Vue.component('Footers', Footers)
+
 import HomeTitle from './components/global/HomeTitle.vue'
 Vue.component('HomeTitle', HomeTitle)
 
