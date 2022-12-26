@@ -1,3 +1,9 @@
+/* 
+ * 使用
+ * this.$showLoading.show();
+ * this.$showLoading.hide();
+ */
+
 import Vue from 'vue'
 import loading001 from './index.vue'
 

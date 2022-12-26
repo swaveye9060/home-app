@@ -71,7 +71,7 @@ export default {
           this.boxIndex = 0;
         }
       }
-    }, 5000);
+    }, 3000);
   },
 
   beforeDestroy() {

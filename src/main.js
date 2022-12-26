@@ -39,6 +39,11 @@ Vue.component('Footers', Footers)
 import HomeTitle from './components/global/HomeTitle.vue'
 Vue.component('HomeTitle', HomeTitle)
 
+/* 
+ * 使用
+ * this.$showLoading.show();
+ * this.$showLoading.hide();
+ */
 import loading001 from './components/global/Loding';
 Vue.use(loading001);
 

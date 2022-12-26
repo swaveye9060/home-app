@@ -13,6 +13,14 @@ const routes = [{
     component: () => import('@/views/Home.vue')
   },
   {
+    path: '/ability',
+    component: () => import('../views/abilitypage/index.vue')
+  },
+  {
+    path: '/ability-detail/:id',
+    component: () => import('../views/abilitypage/ListDetails.vue')
+  },
+  {
     path: '/device',
     component: () => import('../views/devicepage/index.vue'),
     children: []

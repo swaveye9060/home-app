@@ -84,7 +84,11 @@
               Search
             </button>
           </form>
-          <div class="login"><a href="#">登录</a></div>
+          <div class="login">
+            <a href="https://www.haigeek.com/haigeekWeb/#/" target="_blank"
+              >登录</a
+            >
+          </div>
         </div>
       </div>
     </nav>
@@ -116,7 +120,7 @@ export default {
           title: "开放能力",
           label: [],
           isdisabled: false,
-          routerUrl: "/home01",
+          routerUrl: "/ability",
         },
         {
           title: "网器方案",
@@ -179,23 +183,36 @@ export default {
 </script>
 
 <style lang="less" scoped>
-// nav {
-//   padding: 8px 30px;
+nav {
+  padding: 8px 30px;
 
-//   a {
-//     font-weight: bold;
-//     color: #2c3e50;
+  a {
+    font-size: 15px;
+    font-weight: 600;
+    color: #2c3e50;
 
-//     &.router-link-exact-active {
-//       color: #0d6efd !important;
-//     }
-//   }
-// }
-// .logotitle.router-link-exact-active {
-//   color: #000 !important;
-// }
+    &.router-link-exact-active {
+      // color: #0d6efd !important;
+      color: #122179 !important;
 
-/* 白色 */
+      // 添加底部横线
+      .menu-text:before {
+        left: 0;
+        right: auto;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.logotitle,
+.logotitle:hover,
+.logotitle.router-link-exact-active {
+  font-size: 22px;
+  color: #000 !important;
+}
+
+/* 白色文字去背景 */
 // .navbarbox {
 //   position: absolute;
 //   top: 0;
@@ -239,7 +256,7 @@ export default {
 //   width: 0;
 // }
 
-/* 黑色 */
+/* 黑色文字加背景 */
 .navbarbox {
   position: sticky;
   top: 0;
