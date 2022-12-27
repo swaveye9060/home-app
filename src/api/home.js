@@ -17,6 +17,7 @@ export const Api = {
 
   getInfoByDevId: "/manage/cloud/getInfoByDevId", // 根据设备id,查询设备详细介绍信息 get
   getDevPic: "/manage/cloud/getDevPic", // 设备轮播图 get
+  getInfoMoreByType: "/manage/cloud/getInfoMoreByType", // 根据type级联查出详情信息 get
 
 
 }
@@ -43,6 +44,9 @@ export default {
   },
   getDevPic(params) {
     return axiosGet(params, Api.getDevPic)
+  },
+  getInfoMoreByType(params) {
+    return axiosGet(params, Api.getInfoMoreByType)
   },
 
 }

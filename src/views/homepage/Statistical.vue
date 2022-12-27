@@ -1,7 +1,7 @@
 <!-- 
   * Author: ye9060
   * 2022-12-16 ~ 2022-12-16
-  * [统计]
+  * [数据统计]
  -->
 
 <template>
@@ -9,61 +9,24 @@
     <div class="funfact-section d-flex flex-column justify-content-center">
       <div class="container-fluid p-0">
         <div class="row no-gutters counters align-items-center">
-          <div class="col-lg-3 col-6">
-            <div
-              class="single-fun-fact-wrap aos-init aos-animate"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <div class="counter-area">
-                <strong class="counter"> <CountTo :endVal="2022" /> </strong>
-              </div>
-              <div class="counter-content">
-                <h3 class="title">Active Projects</h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-6 item">
+          <div
+            class="col-lg-3 col-6 item"
+            v-for="item in datalist"
+            :key="item.id"
+          >
             <div
               class="single-fun-fact-wrap aos-init aos-animate"
               data-aos="fade-up"
               data-aos-delay="300"
             >
               <div class="counter-area">
-                <strong class="counter"> <CountTo :endVal="5700" /> </strong>
-                <span class="text-white ml-2">+</span>
+                <strong class="counter">
+                  <CountTo :endVal="item.content * 1" suffix="+" />
+                </strong>
+                <!-- <span class="text-white ml-2">+</span> -->
               </div>
               <div class="counter-content">
-                <h3 class="title">Projects Done</h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-6">
-            <div
-              class="single-fun-fact-wrap aos-init aos-animate"
-              data-aos="fade-up"
-              data-aos-delay="600"
-            >
-              <div class="counter-area">
-                <strong class="counter"> <CountTo :endVal="98" /> </strong>
-                <span class="text-white ml-2">%</span>
-              </div>
-              <div class="counter-content">
-                <h3 class="title">Happy Clients</h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-6">
-            <div
-              class="single-fun-fact-wrap aos-init aos-animate"
-              data-aos="fade-up"
-              data-aos-delay="900"
-            >
-              <div class="counter-area">
-                <strong class="counter"> <CountTo :endVal="23045" /> </strong>
-              </div>
-              <div class="counter-content">
-                <h3 class="title">Working Hours</h3>
+                <h3 class="title">{{ item.name }}</h3>
               </div>
             </div>
           </div>
@@ -74,7 +37,35 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      datalist: [],
+    };
+  },
+
+  created() {
+    this.$homeApi
+      .getDevTypeInfo({
+        type: 5,
+      })
+      .then((res) => {
+        // console.log(res, 33);
+        if (res.data.code !== 0) return;
+
+        // 获取列表内容
+        this.$homeApi
+          .getDevByTypeId({
+            id: res.data.data[0].id,
+          })
+          .then((res) => {
+            // console.log(res, 33);
+            if (res.data.code !== 0) return;
+            this.datalist = res.data.data;
+          });
+      });
+  },
+};
 </script>
 
 <style lang="less" scoped>

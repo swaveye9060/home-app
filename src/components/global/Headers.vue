@@ -60,14 +60,15 @@
                 class="dropdown-menu dropdown-menubox"
                 aria-labelledby="navbarDropdown"
               >
-                <li
-                  v-for="(sub, i) in item.label"
-                  :key="i + sub"
-                  ref="subRef"
-                  @click="open($refs['subRef'].textContent)"
-                >
-                  <router-link class="dropdown-item" :to="sub.routerUrl">
-                    <span class="menu-text">{{ sub.value }}</span>
+                <li v-for="(sub, i) in item.label" :key="i + sub" ref="subRef">
+                  <router-link
+                    class="dropdown-item"
+                    :class="{
+                      disabled: sub.isdisabled,
+                    }"
+                    :to="sub.routerUrl"
+                  >
+                    <span class="menu-text">{{ sub.title }}</span>
                   </router-link>
                 </li>
               </ul>
@@ -119,7 +120,7 @@ export default {
         {
           title: "开放能力",
           label: [],
-          isdisabled: false,
+          isdisabled: true,
           routerUrl: "/ability",
         },
         {
@@ -132,38 +133,44 @@ export default {
           title: "技能中心",
           label: [
             {
-              value: "技能一",
-              routerUrl: "/device",
+              title: "技能一",
+              label: [],
+              isdisabled: true,
+              routerUrl: "/skill01",
             },
             {
-              value: "技能二",
-              routerUrl: "/home",
+              title: "技能二",
+              label: [],
+              isdisabled: true,
+              routerUrl: "/skill02",
             },
             {
-              value: "技能三",
-              routerUrl: "/home",
+              title: "技能三",
+              label: [],
+              isdisabled: true,
+              routerUrl: "/skill03",
             },
           ],
           isdisabled: false,
-          routerUrl: "/home",
+          routerUrl: null,
         },
         {
           title: "开发者",
           label: [],
-          isdisabled: false,
-          routerUrl: "/home",
+          isdisabled: true,
+          routerUrl: "/developer",
         },
         {
           title: "合作与生态",
           label: [],
           isdisabled: true,
-          routerUrl: "/home",
+          routerUrl: "/cooperation",
         },
         {
           title: "支持服务",
           label: [],
           isdisabled: true,
-          routerUrl: "/home",
+          routerUrl: "/service",
         },
       ],
     };
@@ -185,6 +192,10 @@ export default {
 <style lang="less" scoped>
 nav {
   padding: 8px 30px;
+
+  .disabled {
+    color: #6c757d !important;
+  }
 
   a {
     font-size: 15px;

@@ -1,13 +1,7 @@
 <!-- 
   * Author: ye9060
   * 2022-12-13 ~ 2022-12-16
-  * [设备]
-  * 获取图片
-  <img
-    class="可设置宽高"
-    :src="`${BaseUrl}/system/file/downloadFile?fid=1670898904174.jpg&fileBucket=smarthome&fileName=333.jpeg`"
-    alt="..."
-  />
+  * [网器方案]
  -->
 
 <template>

@@ -1,20 +1,33 @@
+<!-- 
+  * Author: ye9060
+  * 2022-12-13
+  * [主页]
+  * 
+  * 获取图片
+  <img
+    class="可设置宽高"
+    :src="`${BaseUrl}/system/file/downloadFile?fid=1670898904174.jpg&fileBucket=smarthome&fileName=333.jpeg`"
+    alt="..."
+  />
+ -->
+
 <template>
   <section>
     <!-- 轮播图 -->
     <Shuffling />
-    <div class="container text-center">
+    <div v-if="false" class="container text-center">
       <CountTo :endVal="2022" separator="" prefix="6/" suffix="/3xxx"></CountTo>
       <Countdown />
     </div>
-    <!-- TypeInfo -->
+    <!-- 开放能力 -->
     <TypeInfo />
-    <!-- 介绍 -->
+    <!-- 技术支撑 -->
     <Serve />
-    <!-- 统计 -->
+    <!-- 数据统计 -->
     <Statistical />
-    <!-- 设备 -->
+    <!-- 网器方案 -->
     <Device />
-    <!-- 智能化 -->
+    <!-- 快速接入 -->
     <Intelligence />
     <Footers />
   </section>

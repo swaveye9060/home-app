@@ -1,7 +1,7 @@
 <!-- 
   * Author: ye9060
   * 2022-12-20 ~ 2022-12-20
-  * [智能化]
+  * [快速接入]
  -->
 
 
@@ -15,8 +15,8 @@
           <div
             class="cardbox"
             :class="{ active: i === boxIndex }"
-            v-for="(item, i) in 5"
-            :key="i"
+            v-for="(item, i) in datalist"
+            :key="item.id"
             @mouseover="mouseover(i)"
             @mouseout="mouseout"
           >
@@ -37,8 +37,8 @@
               "
               alt=""
             />
-            <h5>注册认证</h5>
-            <p>支持个人/企业开发者</p>
+            <h5>{{ item.name }}</h5>
+            <p>{{ item.content }}</p>
           </div>
         </div>
       </div>
@@ -60,7 +60,30 @@ export default {
         title02a: "立即体验 >",
         url: "/",
       },
+      datalist: [],
     };
+  },
+
+  created() {
+    this.$homeApi
+      .getDevTypeInfo({
+        type: 4,
+      })
+      .then((res) => {
+        // console.log(res, 33);
+        if (res.data.code !== 0) return;
+
+        // 获取列表内容
+        this.$homeApi
+          .getDevByTypeId({
+            id: res.data.data[0].id,
+          })
+          .then((res) => {
+            // console.log(res, 33);
+            if (res.data.code !== 0) return;
+            this.datalist = res.data.data;
+          });
+      });
   },
 
   mounted() {

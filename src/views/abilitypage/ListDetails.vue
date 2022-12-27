@@ -41,7 +41,11 @@
             {{ datalist[1].label }}
           </h3>
           <div class="row">
-            <div class="col-6" v-for="item in datalist[1].value" :key="item.id">
+            <div
+              class="col-12 col-sm-6 colbox"
+              v-for="item in datalist[1].value"
+              :key="item.id"
+            >
               <div class="textbox">
                 <div class="title">
                   <h4>{{ item.titleOne }}</h4>
@@ -84,7 +88,11 @@
             {{ datalist[3].label }}
           </h3>
           <div class="row">
-            <div class="col-3" v-for="item in datalist[3].value" :key="item.id">
+            <div
+              class="col-12 col-sm-6 col-lg-3 colbox"
+              v-for="item in datalist[3].value"
+              :key="item.id"
+            >
               <div class="textbox">
                 <div class="title">
                   <h4>{{ item.titleOne }}</h4>
@@ -102,26 +110,18 @@
           <h3 class="text-center">
             {{ datalist[4].label }}
           </h3>
-          <div class="row mb-10 rowbox">
+          <div class="row">
             <div
-              class="col-lg-4 col-md-6 mb-12 cardbox"
-              v-for="item in datalist[4].value"
-              :key="item.id"
+              class="col-12 col-sm-6 colbox"
+              v-for="(item, i) in datalist[4].value"
+              :key="item + i"
             >
-              <div class="card">
-                <div class="imgbox"></div>
-                <img
-                  class="imgs"
-                  :src="`${BaseUrl}/system/file/downloadFile?fid=${item.fid}&fileBucket=smarthome&fileName=333.jpeg`"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h5 class="card-title">{{ item.titleOne }}</h5>
-                  <p class="card-text">
-                    {{ item.content }}
-                  </p>
-                  <!-- <a href="#" class="card-link">Card link</a> -->
+              <div class="textbox">
+                <div class="title">
+                  <h4>{{ item.titleOne }}</h4>
+                  <span></span>
                 </div>
+                <p>{{ item.content }}</p>
               </div>
             </div>
           </div>
@@ -160,7 +160,16 @@ export default {
         {
           label: "资源中心",
           type: 5,
-          value: [],
+          value: [
+            {
+              titleOne: "服务接入指南",
+              content: "引导开发者正确接入该服务，并给出过程问题的应对方案。",
+            },
+            {
+              titleOne: "服务接口文档",
+              content: "为开发者提供免费的API接口及详细的调用接口说明文档。",
+            },
+          ],
         },
       ],
     };
@@ -232,7 +241,7 @@ export default {
 }
 
 .namebox {
-  padding: 3vh 0 6vh;
+  padding: 3vh 0 8vh;
 
   &:nth-child(2n - 1) {
     background-color: #f0f2f5;
@@ -253,7 +262,13 @@ export default {
 }
 
 .name1,
-.name3 {
+.name3,
+.name4 {
+  .colbox {
+    // border: 1px solid #000;
+    margin-bottom: 2vh;
+  }
+
   .textbox {
     height: 100%;
     background-color: #fff;
@@ -286,13 +301,8 @@ export default {
   }
 }
 
-.name3 {
-  background-color: rgba(0, 0, 0, 0.8) !important;
-
-  h3 {
-    color: #fff;
-  }
-
+.name3,
+.name4 {
   .textbox {
     .title {
       h4 {
@@ -305,6 +315,27 @@ export default {
   }
 }
 
+.name3 {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  h3 {
+    color: #fff;
+  }
+}
+
+.name4 {
+  background-color: #fff !important;
+
+  .textbox {
+    box-shadow: 0 4px 16px 0 rgb(26 40 114 / 8%),
+      0 3px 6px -10px rgb(26 40 114 / 20%);
+    transition: all 0.1s;
+
+    &:hover {
+      transform: translate(0, -8px);
+    }
+  }
+}
+
 .name2 {
   .cardbox {
     position: relative;
@@ -312,6 +343,8 @@ export default {
     .imgbox {
       position: relative;
       width: 98%;
+      // height: 50vh;
+      // border: 1px solid #000;
       img {
         margin-left: 2%;
         width: 100%;
@@ -377,52 +410,6 @@ export default {
           opacity: 0.9;
         }
       }
-    }
-  }
-}
-
-// .name3 {
-//   .colbox {
-//     padding: 1vh 0;
-
-//     &:nth-child(2n - 1) {
-//       padding-right: 3vw;
-//     }
-//     &:nth-child(2n) {
-//       padding-left: 3vw;
-//     }
-//   }
-//   h5 {
-//     font-weight: 600;
-//     font-size: 18px;
-//   }
-// }
-
-.name4 {
-  .rowbox {
-    padding: 9vh 5vw 7vh;
-    box-shadow: inset 0 10px 20px 0 rgb(152 163 183 / 50%),
-      inset 0 -55px 50px 0 #f4f5f9;
-    background: #e9eaf0;
-    border-radius: 8px;
-  }
-
-  .cardbox {
-    // transition: 0.3s;
-    // border: 1px solid #000;
-
-    // &:hover {
-    //   transform: translateY(-6px);
-    // }
-
-    h5 {
-      padding: 1vh;
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    p {
-      padding: 0 1vh 2vh;
     }
   }
 }
