@@ -119,7 +119,7 @@ export default {
   }
 
   p {
-    padding: 2vh 0;
+    padding: 2vh 28vw 2vh 0;
   }
 }
 </style>

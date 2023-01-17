@@ -169,7 +169,7 @@ export default {
         {
           title: "支持服务",
           label: [],
-          isdisabled: true,
+          isdisabled: false,
           routerUrl: "/service",
         },
       ],

@@ -28,7 +28,19 @@ const routes = [{
   {
     path: '/device-detail/:id',
     component: () => import('../views/devicepage/tabs/ListDetails.vue'),
-  }
+  },
+  {
+    path: '/service',
+    component: () => import('../views/servicepage/index.vue'),
+  },
+  {
+    path: '/service/35',
+    component: () => import('../views/servicepage/Help.vue'),
+  },
+  {
+    path: '/service/36',
+    component: () => import('../views/servicepage/Document.vue'),
+  },
 ]
 
 const router = new VueRouter({

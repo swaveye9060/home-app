@@ -10,6 +10,9 @@ Vue.mixin(mixin);
 /* 引用bootstrap */
 import './assets/bootstrap-5.1.3-dist/css/bootstrap.css'
 import './assets/bootstrap-5.1.3-dist/js/bootstrap.js'
+/* 引用bootstrap > 图标 */
+import "bootstrap-icons/font/bootstrap-icons.css";
+
 
 // 其他样式
 // import './assets/style/other/plugins.min.css'

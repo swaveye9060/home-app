@@ -39,7 +39,7 @@ module.exports = defineConfig({
     // host: 'localhost',
     // host: '0.0.0.0',
     // https: false,
-    open: true,
+    // open: true,
     // proxy: 'http://localhost:9090'   // 配置跨域处理,只有一个代理
     proxy: { //配置多个跨域
       "/api": {

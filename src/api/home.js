@@ -19,6 +19,7 @@ export const Api = {
   getDevPic: "/manage/cloud/getDevPic", // 设备轮播图 get
   getInfoMoreByType: "/manage/cloud/getInfoMoreByType", // 根据type级联查出详情信息 get
 
+  getDocumentCenter: "/manage/cloud/getDocumentCenter", // 查询文档中心 get
 
 }
 
@@ -47,6 +48,9 @@ export default {
   },
   getInfoMoreByType(params) {
     return axiosGet(params, Api.getInfoMoreByType)
+  },
+  getDocumentCenter(params) {
+    return axiosGet(params, Api.getDocumentCenter)
   },
 
 }
