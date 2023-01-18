@@ -274,6 +274,7 @@ nav {
   left: 0;
   z-index: 99;
   width: 100%;
+  box-shadow: 0 -1px 6px 0 rgba(0, 0, 255, 0.2);
 
   padding: 2vh 3vw;
 }

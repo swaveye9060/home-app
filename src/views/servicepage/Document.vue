@@ -1,8 +1,9 @@
 <template>
   <section class="box">
     <div class="left">
-      <h5>文档中心</h5>
-      <div class="input-group mb-3">
+      <h5 class="titleh5">文档中心</h5>
+      <span class="titlespan"></span>
+      <div v-if="false" class="input-group mb-3">
         <input
           type="text"
           class="form-control"
@@ -30,18 +31,20 @@
             <i class="bi bi-bookmarks-fill icon01"></i>
             <span>{{ item.titleOne }}</span>
           </div>
+          <!-- 2级 -->
           <div
             class="collapse"
-            :class="{ show: item.id === datalist[0].id }"
+            :class="{ show: item.id === showID }"
             :id="`home-collapse-${item.id}`"
           >
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
               <li v-for="ite in item.children" :key="ite.id">
                 <div
                   class="title02"
-                  :class="{ active: ite.id === xxxid }"
-                  @click="xxx(ite)"
+                  :class="{ active: ite.id === activeID }"
+                  @click="handlerActive(ite, item)"
                 >
+                  <!-- 3级 -->
                   <div
                     v-if="ite.children && ite.children.length === 0"
                     @click="getContent(ite.content)"
@@ -51,7 +54,6 @@
                   </div>
 
                   <!-- class=" btn btn-toggle align-items-center rounded collapsed " -->
-
                   <div v-else>
                     <div
                       class="title02sel"
@@ -62,21 +64,23 @@
                       <i class="bi bi-bookmarks-fill icon01"></i>
                       <span>{{ ite.titleOne }}</span>
                     </div>
+                    <!-- /// -->
                     <div
                       class="collapse title02sel"
+                      :class="{ show: ite.id === showItemID }"
                       :id="`home-collapse-${ite.id}`"
                     >
                       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
                         <li
                           v-for="sub in ite.children"
                           :key="sub.id"
-                          @click.stop="xxx(sub)"
-                          :class="{ active: sub.id === xxxid }"
+                          @click.stop="handlerActive(sub, ite, item.titleOne)"
+                          :class="{ active: sub.id === activeID }"
                         >
-                          <i class="bi bi-file-word-fill icon02"></i>
-                          <span @click="getContent(ite.content)">{{
-                            sub.titleOne
-                          }}</span>
+                          <div @click="getContent(ite.content)">
+                            <i class="bi bi-file-word-fill icon02"></i>
+                            <span>{{ sub.titleOne }}</span>
+                          </div>
                         </li>
                       </ul>
                     </div>
@@ -89,12 +93,35 @@
       </ul>
     </div>
     <div class="center">
+      <div class="topbox">
+        <ul>
+          <li v-if="titlebox.title">{{ titlebox.title }}<i>/</i></li>
+          <li v-if="titlebox.title01">{{ titlebox.title01 }}<i>/</i></li>
+          <li v-if="titlebox.title02">{{ titlebox.title02 }}</li>
+        </ul>
+        <p class="time">
+          更新时间:
+          <span>{{ updateTime }}</span>
+        </p>
+      </div>
+
       <div class="output ql-snow">
         <div class="ql-editor" v-html="html01"></div>
       </div>
+
+      <div class="btmbox" v-show="false">
+        <div>
+          <h6>上一篇</h6>
+          <p>已经是第一个</p>
+        </div>
+        <div>
+          <h6>下一篇</h6>
+          <p>产品支持小优语音控制</p>
+        </div>
+      </div>
     </div>
-    <div class="right">
-      <div v-if="false" class="flex-shrink-0 p-3 bg-white" style="width: 280px">
+    <div v-if="false" class="right">
+      <div class="flex-shrink-0 p-3 bg-white" style="width: 280px">
         <a
           href="/"
           class="
@@ -196,10 +223,17 @@ export default {
   data() {
     return {
       titleicon01: false,
-      xxxid: 0,
+      showID: 0,
+      showItemID: 0,
+      activeID: 0,
       content: "",
       datalist: [],
       html01: [],
+      titlebox: {},
+      updateTime: "",
+      iteData: JSON.parse(sessionStorage.getItem("ite")),
+      itemData: JSON.parse(sessionStorage.getItem("item")),
+      treeItem: sessionStorage.getItem("treeItem"),
     };
   },
 
@@ -210,22 +244,56 @@ export default {
         // console.log(res.data.data[0].children[0].content, 33);
         if (res.data.code !== 0) return;
         this.datalist = res.data.data;
+        this.showID = this.datalist[0].id;
 
-        this.getContent(res.data.data[0].children[0].content);
+        // 确保数据存在
+        let a = [];
+        this.datalist.forEach((e) => {
+          if (e.children.length > 0) {
+            a.push(e.children);
+          }
+        });
+        let b = this.datalist.filter((e) => e.id === a[0][0].parentId);
+
+        // 首次进入页面 & 刷新页面回显
+        if (this.iteData && this.itemData) {
+          this.getContent(this.iteData.content);
+          this.handlerActive(this.iteData, this.itemData, this.treeItem);
+        } else {
+          this.getContent(a[0][0].content);
+          this.handlerActive(a[0][0], b[0]);
+        }
       });
   },
 
   methods: {
     getContent(html) {
-      // console.log(html, 333);
-      if (html) this.html01 = html.replace(/\r\n/g, "<br/>");
+      if (!html) {
+        this.html01 = "暂无数据。。。";
+        return;
+      }
+      this.html01 = html.replace(/\r\n/g, "<br/>");
     },
 
-    xxx(val) {
-      if (val.children && val.children.length !== 0) return;
-      // console.log(val, 333);
-      this.xxxid = val.id;
-      // this.content = val.content;
+    handlerActive(ite, item, treeItem) {
+      console.log(ite, item, treeItem, 333);
+      if (ite.children && ite.children.length !== 0) return;
+      // console.log(data, 6);
+      this.activeID = ite.id;
+      this.showID = item.parentId == 0 ? ite.parentId : item.parentId;
+      this.showItemID = ite.parentId;
+      this.updateTime = ite.updateTime;
+      // 内容 > 面包屑
+      this.titlebox = {
+        title01: item.titleOne || "",
+        title02: ite.titleOne || "",
+        title: treeItem,
+      };
+      sessionStorage.setItem("ite", JSON.stringify(ite));
+      sessionStorage.setItem("item", JSON.stringify(item));
+      // console.log(treeItem, 6);
+      treeItem = treeItem ? treeItem : "";
+      sessionStorage.setItem("treeItem", treeItem);
     },
   },
 };
@@ -235,22 +303,46 @@ export default {
 .box {
   display: flex;
   justify-content: space-between;
+  min-height: calc(100vh - 120px);
+  overflow: hidden;
 }
+
+.titleh5 {
+  position: relative;
+  font-size: 18px;
+  font-weight: 600;
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 72px;
+    height: 9px;
+    background-color: #90ade8;
+    margin-bottom: 6px;
+    transform: translateY(-10px);
+    z-index: -1;
+  }
+}
+
 .left {
-  width: 20%;
+  width: 16%;
   padding: 20px;
+  padding-left: 30px;
   border-right: 1px dashed rgba(0, 0, 0, 0.1);
 
   .active {
-    background-color: aquamarine;
+    background-color: rgba(191, 213, 255, 0.4);
+    span {
+      color: #333;
+    }
   }
 
   /* title */
   .title01 {
     cursor: pointer;
-    color: #333;
+    color: rgba(0, 0, 0, 0.75);
     font-weight: 600;
-    line-height: 30px;
+    line-height: 36px;
 
     span {
       margin-left: 6px;
@@ -258,7 +350,7 @@ export default {
   }
 
   .title02 {
-    color: rgba(0, 0, 0, 0.8);
+    color: rgba(0, 0, 0, 0.7);
     line-height: 30px;
     span {
       margin-left: 6px;
@@ -273,7 +365,7 @@ export default {
   }
 
   .collapse {
-    color: rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0.5);
     margin-left: 10px;
     transition: 0.3s;
   }
@@ -288,10 +380,43 @@ export default {
 }
 
 .center {
-  width: 60%;
+  width: 84%;
+  padding: 8px 20px 80px;
+
+  .topbox,
+  .btmbox {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p {
+      margin: 0;
+    }
+  }
+
+  .topbox {
+    .time {
+      color: rgba(0, 0, 0, 0.3);
+    }
+    ul {
+      display: flex;
+      li {
+        i {
+          padding: 0 6px;
+          color: rgba(0, 0, 0, 0.3);
+        }
+        &:not(:last-child) {
+          color: rgba(0, 0, 0, 0.5);
+        }
+      }
+    }
+  }
+
+  .btmbox {
+    text-align: center;
+  }
 }
 .right {
-  width: 20%;
 }
 
 span {
